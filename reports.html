@@ -82,7 +82,13 @@
             </table>
 			</div>
 			
-			<button class="btn btn-lg btn-primary btn-block" type="submit">Send email</button>
+			<form id="sendMail" action="emailHandler.php" method="post">
+				<button class="btn btn-lg btn-primary btn-block" type="submit">Send email</button>
+			</form>
+			<BR>
+			<form id="reset" action="resetTable.php" method="post">
+				<button class="btn btn-lg btn-danger btn-block" type="submit">Reset</button>
+			</form>
         </div>
       </div>
     </div>
