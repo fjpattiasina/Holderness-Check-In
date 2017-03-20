@@ -51,15 +51,30 @@
         </div>
 				
 			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-				<form class="form-signin">
+				<form id="idForm" class="form-signin" action="studentHandler.php" method="post">
 					<h2 class="form-signin-heading">Enter ID:</h2>
 					
-					<input type="text" id="inputID" class="form-control" placeholder="Student ID number" required autofocus>
+					<input type="text" id="ID" class="form-control" placeholder="Student ID number" required autofocus>
 					<BR>
 					<button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
 				</form>
+				
+				<script type='text/javascript'>
+					$("#idForm").submit(function(event){
+					event.preventDefault();
+					
+						var $form = $(this),
+							url=$form.attr('action');
+							
+						var posting = $.poster(url, { id: $('#ID').val() } );
+						
+						posting.done(function(data){
+							alert('Success');
+						});
+					});
+				</script>
+				
 			</div>
-			
 		</div>
     </div>
 		
