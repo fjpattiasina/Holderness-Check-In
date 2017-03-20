@@ -50,23 +50,51 @@
         </div>
 		
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h1 class="page-header">Student Roster</h1>
+          <h1 class="page-header"><a href="#">Student Roster</a></h1>
 
-		  <h4>Current missing students: </h4>
-		  
-          <div class="table-responsive">
+		  <h4>Current missing students:</h4>
+			<div class="table-responsive">
             <table class="table table-striped">
               <thead>
                 <tr>
-                  <th>ID Number</th>
+                  <th>ID number</th>
                   <th>First Name</th>
-                  <th>Last Name</th>
+                  <th>Last name</th>
                 </tr>
               </thead>
               <tbody>
+                <tr>
+                  <td>1234</td>
+                  <td>Frank</td>
+                  <td>Pattiasina</td>
+                </tr>
+				<tr>
+                  <td>1111</td>
+                  <td>Luke</td>
+                  <td>Skywalker</td>
+                </tr>
+				<tr>
+                  <td>2222</td>
+                  <td>John</td>
+                  <td>Doe</td>
+                </tr>
               </tbody>
             </table>
-          </div>
+			</div>
+			<?php
+			$row = 1;
+			if (($handle = fopen("test.csv", "r")) !== FALSE) {
+				while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+					$num = count($data);
+					echo "<p> $num fields in line $row: <br /></p>\n";
+					$row++;
+					for ($c=0; $c < $num; $c++) {
+						echo $data[$c] . "<br />\n";
+					}
+				}
+				fclose($handle);
+			}
+			?>
         </div>
       </div>
     </div>
