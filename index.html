@@ -22,7 +22,7 @@
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
+    <script src="js/ie-emulation-modes-warning.js"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -32,7 +32,9 @@
   </head>
 
   <body>
-
+	
+	<!-- :::::::::::::::: NAVIGATION BAR ::::::::::::::::  -->
+	
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
         <div class="navbar-header">
@@ -41,52 +43,135 @@
       </div>
     </nav>
 
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-          <ul class="nav nav-sidebar">
-            <li class="active"><a href="index.html">Check in <span class="sr-only">(current)</span></a></li>
-            <li><a href="reports.html">Reports</a></li>
-          </ul>
-        </div>
-				
-			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+	<!-- :::::::::::::::: SCAN ID FORM ::::::::::::::::  -->
+	
+    <div class="container-fluid">				
+		<div class="col-md-12">
+			<center>
 				<form id="idForm" class="form-signin" action="studentHandler.php" method="post">
-					<h2 class="form-signin-heading">Enter ID:</h2>
+					<h2 class="form-signin-heading">Scan ID:</h2>
 					
-					<input type="text" id="ID" class="form-control" placeholder="Student ID number" required autofocus>
-					<BR>
+					<div class="form-group">
+						<input type="text" id="ID" class="form-control" placeholder="Student ID number" required autofocus>
+					</div>
 					<button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
 				</form>
-				
-				<script type='text/javascript'>
-					$("#idForm").submit(function(event){
-					event.preventDefault();
-					
-						var $form = $(this),
-							url=$form.attr('action');
-							
-						var posting = $.poster(url, { id: $('#ID').val() } );
-						
-						posting.done(function(data){
-							alert('Success');
-						});
-					});
-				</script>
-				
-			</div>
+			</center>
 		</div>
     </div>
+	
+	<!-- :::::::::::::::: DISPLAY TABLE ::::::::::::::::  -->
+	
+	<div class="container-fluid">		
+        <div class="col-md-12">
+          <h1 class="page-header"><a href="https://docs.google.com/a/holderness.org/spreadsheets/d/1R0hUT4J7onbvDkpEacYMFcpUmLkPC76JsW_6HFS9yRY/edit?usp=sharing">Student Roster</a></h1>
+
+		  <h4>Have not checked in:</h4>
+			<div class="table-responsive">
+				<table class="table table-striped">
+				  <thead>
+					<tr>
+					  <th>ID number</th>
+					  <th>First Name</th>
+					  <th>Last name</th>
+					</tr>
+				  </thead>
+				  <tbody>
+					<tr>
+					  <td>1234</td>
+					  <td>Frank</td>
+					  <td>Pattiasina</td>
+					</tr>
+					<tr>
+					  <td>1111</td>
+					  <td>Luke</td>
+					  <td>Skywalker</td>
+					</tr>
+					<tr>
+					  <td>2222</td>
+					  <td>John</td>
+					  <td>Doe</td>
+					</tr>
+					<tr>
+					  <td>3333</td>
+					  <td>Harry</td>
+					  <td>Potter</td>
+					</tr>
+					<tr>
+					  <td>4444</td>
+					  <td>John</td>
+					  <td>Smith</td>
+					</tr>
+				  </tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	
+	<!-- :::::::::::::::: BUTTONS ::::::::::::::::  -->
+	
+	<div class="container-fluid">
+		<div class="col-md-12">
+			<button class="btn btn-lg btn-info btn-block" type="button" data-toggle="modal" data-target="#sendEmailModal">Send email</button>
+			<button class="btn btn-lg btn-danger btn-block" type="button" data-toggle="modal" data-target="#resetTableModal">Reset</button>
+        </div>
+    </div>
+	
+	<!-- :::::::::::::::: MODALS ::::::::::::::::  -->
+	
+	<!-- Send Email Modal -->
+	<div id="sendEmailModal" class="modal-fade" role="dialog">
+	  <div class="modal-dialog">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">&times;</button>
+			<h4 class="modal-title">Send Email</h4>
+		  </div>
+		  <div class="modal-body">
+			<p>Are you sure you want to send out this email?</p>
+		  </div>
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-success" data-dismiss="modal">Confirm</button>
+			<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+		  </div>
+		</div>
+	  </div>
+	</div>
+	
+	<!-- Reset Table Modal -->
+	<div id="resetTableModal" class="modal-fade" role="dialog">
+	  <div class="modal-dialog">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">&times;</button>
+			<h4 class="modal-title">Reset Table</h4>
+		  </div>
+		  <div class="modal-body">
+			<p>Are you sure you want to reset the table?</p>
+		  </div>
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-success" data-dismiss="modal">Confirm</button>
+			<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+		  </div>
+		</div>
+	  </div>
+	</div>
 		
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-    <script src="../../dist/js/bootstrap.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="js/bootstrap.min.js"></script>
+	
+	<!-- :::::::::::::::: jQuery and AJAX ::::::::::::::::  -->
+	<script>
+	//stuff
+	</script>
+	
     <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
-    <script src="../../assets/js/vendor/holder.min.js"></script>
+    <script src="js/vendor/holder.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+    <script src="js/ie10-viewport-bug-workaround.js"></script>
   </body>
 </html>
