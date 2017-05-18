@@ -3,12 +3,12 @@
 This HTML implementation of a website check in system utilizes a multitude of technologies. These pages utilize HTML, CSS, PHP, AJAX, jQuery, and mySQLi functions. In addition, the main framework was built using the free open-source framework, Bootstrap.
 
 ## File Directory
-Holderness-Check-In
-├── css
-│   ├── bootstrap.css
-│   ├── bootstrap.css.map
-│   ├── bootstrap.min.css
-│   ├── bootstrap.min.css.map
+Holderness-Check-In  
+├── css  
+│   ├── bootstrap.css  
+│   ├── bootstrap.css.map  
+│   ├── bootstrap.min.css  
+│   ├── bootstrap.min.css.map  
 │   ├── bootstrap-theme.css
 │   ├── bootstrap-theme.css.map
 │   ├── bootstrap-theme.min.css
