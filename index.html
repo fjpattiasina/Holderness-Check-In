@@ -10,31 +10,18 @@
 
     <title>Check In</title>
 
+    <!-- :::::::::::::::::: CSS :::::::::::::::::: -->
+
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <link href="css/ie10-viewport-bug-workaround.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="dashboard.css" rel="stylesheet">
-	<link href="signin.css" rel="stylesheet">
-
-    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="js/ie-emulation-modes-warning.js"></script>
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <link href="css/dashboard.css" rel="stylesheet">
+	  <link href="css/signin.css" rel="stylesheet">
   </head>
 
   <body>
-	
+
 	<!-- :::::::::::::::: NAVIGATION BAR ::::::::::::::::  -->
-	
+
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
         <div class="navbar-header">
@@ -44,134 +31,159 @@
     </nav>
 
 	<!-- :::::::::::::::: SCAN ID FORM ::::::::::::::::  -->
-	
-    <div class="container-fluid">				
-		<div class="col-md-12">
-			<center>
-				<form id="idForm" class="form-signin" action="studentHandler.php" method="post">
-					<h2 class="form-signin-heading">Scan ID:</h2>
-					
-					<div class="form-group">
-						<input type="text" id="ID" class="form-control" placeholder="Student ID number" required autofocus>
-					</div>
-					<button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
-				</form>
-			</center>
-		</div>
+
+    <div class="container-fluid">
+  		<div class="col-md-12">
+  			<center>
+  				<form class="form-signin" method="POST">
+  					<h2 class="form-signin-heading">Scan ID:</h2>
+
+  					<div class="form-group">
+  						<input type="text" name="id" id="id" class="form-control" placeholder="Student ID number" required autofocus>
+  					</div>
+  					<button class="btn btn-lg btn-primary btn-block" onclick="checkIn()">Check In</button>
+  				</form>
+  			</center>
+  		</div>
     </div>
-	
+
 	<!-- :::::::::::::::: DISPLAY TABLE ::::::::::::::::  -->
-	
-	<div class="container-fluid">		
-        <div class="col-md-12">
-          <h1 class="page-header"><a href="https://docs.google.com/a/holderness.org/spreadsheets/d/1R0hUT4J7onbvDkpEacYMFcpUmLkPC76JsW_6HFS9yRY/edit?usp=sharing">Student Roster</a></h1>
+	<div class="container-fluid">
+    <div class="col-md-12">
+      <h1 class="page-header"><a href="https://docs.google.com/spreadsheets/d/1Kyffy9HbEtcqbaOkaKhHWqgI4dDBjqMD32Y6tkCuwVg/edit?usp=sharing">Student Roster</a></h1>
 
 		  <h4>Have not checked in:</h4>
-			<div class="table-responsive">
-				<table class="table table-striped">
-				  <thead>
-					<tr>
-					  <th>ID number</th>
-					  <th>First Name</th>
-					  <th>Last name</th>
-					</tr>
-				  </thead>
-				  <tbody>
-					<tr>
-					  <td>1234</td>
-					  <td>Frank</td>
-					  <td>Pattiasina</td>
-					</tr>
-					<tr>
-					  <td>1111</td>
-					  <td>Luke</td>
-					  <td>Skywalker</td>
-					</tr>
-					<tr>
-					  <td>2222</td>
-					  <td>John</td>
-					  <td>Doe</td>
-					</tr>
-					<tr>
-					  <td>3333</td>
-					  <td>Harry</td>
-					  <td>Potter</td>
-					</tr>
-					<tr>
-					  <td>4444</td>
-					  <td>John</td>
-					  <td>Smith</td>
-					</tr>
-				  </tbody>
-				</table>
-			</div>
-		</div>
-	</div>
-	
+      <!--
+        All the table content is automatically loaded into this div tag,
+        through AJAX and PHP.
+      -->
+      <div class="content"></div>
+
+	 </div>
+ </div>
+
 	<!-- :::::::::::::::: BUTTONS ::::::::::::::::  -->
-	
+
 	<div class="container-fluid">
 		<div class="col-md-12">
 			<button class="btn btn-lg btn-info btn-block" type="button" data-toggle="modal" data-target="#sendEmailModal">Send email</button>
 			<button class="btn btn-lg btn-danger btn-block" type="button" data-toggle="modal" data-target="#resetTableModal">Reset</button>
-        </div>
     </div>
-	
+  </div>
+
 	<!-- :::::::::::::::: MODALS ::::::::::::::::  -->
-	
+
 	<!-- Send Email Modal -->
-	<div id="sendEmailModal" class="modal-fade" role="dialog">
-	  <div class="modal-dialog">
-		<div class="modal-content">
-		  <div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal">&times;</button>
-			<h4 class="modal-title">Send Email</h4>
-		  </div>
-		  <div class="modal-body">
-			<p>Are you sure you want to send out this email?</p>
-		  </div>
-		  <div class="modal-footer">
-			<button type="button" class="btn btn-success" data-dismiss="modal">Confirm</button>
-			<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-		  </div>
-		</div>
-	  </div>
-	</div>
-	
+  <div class="modal fade" tabindex="-1" role="dialog" id="sendEmailModal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Send Email</h4>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to send this email?</p>
+        </div>
+        <div class="modal-footer">
+          <a href="mailto:pcurrie@holderness.org?subject=Student Check In&body=Hello all, here is the list of people that did not attend: "> <button type="button" class="btn btn-success" >Confirm</button></a>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 	<!-- Reset Table Modal -->
-	<div id="resetTableModal" class="modal-fade" role="dialog">
-	  <div class="modal-dialog">
-		<div class="modal-content">
-		  <div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal">&times;</button>
-			<h4 class="modal-title">Reset Table</h4>
-		  </div>
-		  <div class="modal-body">
-			<p>Are you sure you want to reset the table?</p>
-		  </div>
-		  <div class="modal-footer">
-			<button type="button" class="btn btn-success" data-dismiss="modal">Confirm</button>
-			<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-		  </div>
-		</div>
-	  </div>
-	</div>
-		
+  <div class="modal fade" tabindex="-1" role="dialog" id="resetTableModal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Reset Table</h4>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to reset the table?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" id="resetTableButton">Confirm</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="js/vendor/jquery.min.js"><\/script>')</script>
     <script src="js/bootstrap.min.js"></script>
-	
+
 	<!-- :::::::::::::::: jQuery and AJAX ::::::::::::::::  -->
 	<script>
-	//stuff
+  /**
+   * FUNCTION NAME: read()
+   * PURPOSE: display table of students not yet checked in
+   * this function uses AJAX to make a connection to the /php/read.php
+   * page and fetchs whatever that page spit out, which is actually
+   * the formatted table of all the students not checked in
+   */
+  function read() {
+      $.get("php/read.php", {}, function (data, status) {
+          $(".content").html(data);
+      });
+  }
+
+  /**
+   * FUNCTION NAME: checkIn()
+   * PURPOSE: takes input in the textbox, and using AJAX, sends that
+   * over to the /php/delete.php file, and then reloads the table,
+   * using the read() function listed above. it also verifies that
+   * the textbox is not empty, and also resets the textbox, once
+   * it has received one and attempted to remove it from the table.
+   */
+   function checkIn(){
+    event.preventDefault();
+
+    if($('#id').val() == ""){
+      alert("Please do not leave the entries blank.");
+    }
+    else{
+      //get value
+      var id = $('#id').val();
+
+      //remove id
+      $.post("php/delete.php", {
+        id: id
+      }, function (data, status) {
+        //read records again, to refresh the table
+        read();
+
+        //clear fields from the textfield
+        $('#id').val("");
+      });
+    }
+  }
+
+  /**
+   * FUNCTION NAME: when the page loads, this function is running!
+   * PURPOSE: runs the read() function, so that we can see the table
+   * as soon as the page loads. this way we don't have to click on
+   * anything extra to open it. in addition, prepares a button, reset table,
+   * so that when the user clicks on that button, they have initiated the
+   * table reset function, handled by /php/reset.php
+   */
+   $(document).ready(function(){
+    read();
+
+    //this is the function for resetting the table
+    $('#resetTableButton').click(function(){
+      $.ajax('php/reset.php', function(data){
+      });
+      location.reload();
+    });
+  });
+
 	</script>
-	
-    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
-    <script src="js/vendor/holder.min.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="js/ie10-viewport-bug-workaround.js"></script>
+
   </body>
 </html>
