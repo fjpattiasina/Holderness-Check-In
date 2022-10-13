@@ -8,9 +8,9 @@
 
   //set the variables, server name, username, password, database name
   $server = 'localhost';
-  $user = 'fjp1010';
+  $user = 'admin';
   $password = 'molyterf';
-  $db = 'Team2';
+  $db = 'CheckInSystem';
 
   //create the connection using preset variables from above
   $db_con = mysqli_connect($server,$user,$password,$db);
